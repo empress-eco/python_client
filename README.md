@@ -1,157 +1,93 @@
-## Frappe Client
+<div align="center">
+  <img src="https://grow.empress.eco/uploads/default/original/2X/1/1f1e1044d3864269d2a613577edb9763890422ab.png" alt="Logo" width="80" height="80">
+  <h2 align="center">Python_Client: The Ultimate Python Wrapper for Empress REST API</h2>
+  <p align="center">
+    Delivering an intuitive, efficient, and user-friendly interface for seamless interaction with Empress REST API!
+    <br />
+    <a href="https://empress.eco/"><strong>Explore the Official Documentation »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/empress-eco/python_client/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/empress-eco/python_client/issues">Request Feature</a>
+  </p>
+</div>
 
-Simple Frappe-like Python wrapper for Frappe REST API
+## About Python_Client
 
-### Install
+The Python_Client is a convenient python wrapper designed for the Empress REST API, providing a user-friendly interface that enables developers to manage and manipulate their data efficiently. With Python_Client, you can perform common API operations such as login, list retrieval, insertion, document fetching, value fetching, update, and delete with ease.
 
-```
-git clone https://github.com/frappe/frappe-client
-pip install -e frappe-client
-```
+This project is ideal for developers working with the Empress HTTP Server, enabling quick and efficient data management and manipulation.
 
-### API
+## Key Features
 
-FrappeClient has a frappe like API
+- **Easy Login**: Log in effortlessly to the Empress HTTP Server.
+- **Token-Based Authentication**: Secure and efficient authentication.
+- **Document Management**: Fetch, insert, update, and delete documents on the server.
+- **Value Retrieval**: Fetch individual values from the server.
 
-#### Login
+## Technical Stack and Setup Instructions
 
-Login to the Frappe HTTP Server by creating a new FrappeClient object
+Python_Client is built with Python and requires Python and pip for installation.
 
-```py
-from frappeclient import FrappeClient
+### Installation
 
-conn = FrappeClient("example.com")
+1. **Clone the repository**:
+
+   ```
+   git clone https://github.com/empress-eco/python_client.git
+   ```
+
+2. **Install Python_Client using pip**:
+
+   ```
+   pip install -e python_client
+   ```
+
+## Usage
+
+Python_Client offers a variety of features including login, token-based authentication, document and value fetching, document insertion and updating, and document deletion. Here are some basic examples to get you started:
+
+### Login
+
+```python
+from Empressclient import EmpressClient
+
+conn = EmpressClient("example.com")
 conn.login("user@example.com", "password")
 ```
 
-#### Use token based authentication
+### Token-Based Authentication
 
-```py
-from frappeclient import FrappeClient
+```python
+from Empressclient import EmpressClient
 
-client = FrappeClient("https://example.com")
+client = EmpressClient("https://example.com")
 client.authenticate("my_api_key", "my_api_secret")
 ```
 
-For demonstration purposes only! Never store any credentials in your source code. Instead, you could set them as environment variables and fetch them with `os.getenv()`.
+### Fetching Document List from the Server
 
-#### get_list
-
-Get a list of documents from the server
-
-Arguments:
-- `doctype`
-- `fields`: List of fields to fetch
-- `filters`: Dict of filters
-- `limit_start`: Start at row ID (default 0)
-- `limit_page_length`: Page length
-- `order_by`: sort key and order (default is `modified desc`)
-
-```py
+```python
 users = conn.get_list('User', fields = ['name', 'first_name', 'last_name'], , filters = {'user_type':'System User'})
 ```
 
-Example of filters:
-- `{ "user_type": ("!=", "System User") }`
-- `{ "creation": (">", "2020-01-01") }`
-- `{ "name": "test@example.com" }`
+## Contribution Guidelines
 
-#### insert
+We warmly welcome and appreciate contributions! If you wish to improve Python_Client, you can contribute in the following ways:
 
-Insert a new document to the server
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AwesomeFeature`)
+3. Commit your Changes (`git commit -m 'Add some AwesomeFeature'`)
+4. Push to the Branch (`git push origin feature/AwesomeFeature`)
+5. Open a Pull Request
 
-Arguments:
+## License and Acknowledgements
 
-- `doc`: Document object
+This project is licensed under the terms of the [MIT license](https://github.com/empress-eco/python_client/blob/main/LICENSE).
 
-```python
-doc = conn.insert({
-	"doctype": "Customer",
-	"customer_name": "Example Co",
-	"customer_type": "Company",
-	"website": "example.net"
-})
-```
+We express our profound gratitude to the Empress Community for their foundational contributions to this project. Their innovation and dedication have been instrumental in building the foundations and functionalities we rely on. 
 
-#### get_doc
+## Support
 
-Fetch a document from the server
-
-Arguments
-- `doctype`
-- `name`
-
-```py
-doc = conn.get_doc('Customer', 'Example Co')
-```
-
-#### get_value
-
-Fetch a single value from the server
-
-Arguments:
-
-- `doctype`
-- `fieldname`
-- `filters`
-
-```py
-customer_name = conn.get_value("Customer", "name", {"website": "example.net"})
-```
-
-#### update
-
-Update a document (if permitted)
-
-Arguments:
-- `doc`: JSON document object
-
-```py
-doc = conn.get_doc('Customer', 'Example Co')
-doc['phone'] = '000000000'
-conn.update(doc)
-```
-
-#### delete
-
-Delete a document (if permitted)
-
-Arguments:
-- `doctype`
-- `name`
-
-```py
-conn.delete('Customer', 'Example Co')
-```
-
-### Example
-
-```python
-from frappeclient import FrappeClient
-
-conn = FrappeClient("example.com", "user@example.com", "password")
-new_notes = [
-	{"doctype": "Note", "title": "Sing", "public": True},
-	{"doctype": "Note", "title": "a", "public": True},
-	{"doctype": "Note", "title": "Song", "public": True},
-	{"doctype": "Note", "title": "of", "public": True},
-	{"doctype": "Note", "title": "sixpence", "public": True}
-]
-
-for note in new_notes:
-	print(conn.insert(note))
-
-# get note starting with s
-notes = conn.get_list('Note',
-	filters={'title': ('like', 's')},
-	fields=["title", "public"]
-)
-```
-
-### Example
-
-See example.py for more info
-
-### License
-
-MIT
+For additional help or inquiries, please visit our [support page](https://grow.empress.eco/).
